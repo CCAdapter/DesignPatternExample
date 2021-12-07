@@ -1,0 +1,3 @@
+想让外部只能用PageMaker类，不能用Database类和HtmlWriter类，如何修改？
+将Database类和HtmlWriter类的public类访问修饰符都删掉，只留PageMaker一个public类，
+这样外部就只能访问PageMaker类了（即使不删除方法的public修饰符）。

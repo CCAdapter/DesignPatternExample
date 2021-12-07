@@ -1,0 +1,4 @@
+support方法可见性是public，而resolve是protected，为什么？
+1. 表示设计者希望Support类收到请求后，不要使用resolve方法，而使用support方法。如果resolve为public
+，可能会导致外部对resolve方法的使用方法与期待的使用方法不符。
+2. 此外resolve方法的可见性设为public，可能会发生当resolve方法的签名发生改变时，必须修改散落在程序中各个地方的代码的问题。
