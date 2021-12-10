@@ -1,0 +1,2 @@
+在Memento类中添加新字段 "int number;",Memento类可以获取改变该字段，Gamer只能获取，Main不能获取且不能改变。
+答：定义number字段时用private访问修饰符，定义default或无访问修饰符修饰的get方法，不定义set方法。

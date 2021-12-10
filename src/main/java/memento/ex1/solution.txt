@@ -1,0 +1,4 @@
+如果 Caretaker角色可以随意操作 Memento 角色，会发生什么？
+会导致 Caretaker 角色失去与 Originator 角色之间的独立性。
+当修改Originator角色内部代码时，就必须要同时修改Caretaker角色。
+而如果Caretaker角色只能用窄接口，只要不修改那个接口，就可以自由修改Originator和Memento角色。
