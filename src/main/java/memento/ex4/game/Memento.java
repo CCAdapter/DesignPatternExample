@@ -24,6 +24,7 @@ public class Memento implements Serializable {
     }
 
     // wide interface
+    @SuppressWarnings("unchecked")
     ArrayList<String> getFruits() {
         return (ArrayList<String>) fruits.clone();
     }
