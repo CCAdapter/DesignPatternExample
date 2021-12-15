@@ -1,0 +1,2 @@
+如果要对示例程序中的白天和晚上的时间区间做变更，应如何修改？
+需要修改DayState和NightState类的doClock方法。
