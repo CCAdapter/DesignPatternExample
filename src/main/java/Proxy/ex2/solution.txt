@@ -1,0 +1,2 @@
+PrinterProxy类中的setPrinterName方法和realize方法都是synchronized方法，如果不适用同步会有什么问题？
+会有并发的问题。当多个线程分别调用setPrinterName和realize方法，可能会导致PrinterProxy与Printer类的name不一致的情况。
