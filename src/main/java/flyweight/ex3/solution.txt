@@ -1,0 +1,2 @@
+BigCharFactory类中getBigChar方法是synchronized方法，如果不是会有什么问题？
+会有并发读写问题。（多个线程同时调用该方法时，在判断是否已经生成实例时可能会出错，导致new出多个实例）
