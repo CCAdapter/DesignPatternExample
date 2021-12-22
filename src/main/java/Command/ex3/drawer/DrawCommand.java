@@ -1,6 +1,6 @@
 package Command.ex3.drawer;
 
-import Command.command.Command;
+import Command.ex3.command.Command;
 
 import java.awt.*;
 

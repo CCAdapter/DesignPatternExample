@@ -1,11 +1,21 @@
 package Command.ex1.drawer;
 
+import Command.ex1.command.Command;
+
 import java.awt.*;
 
-public class ColorCommand extends DrawCommand {
-    private String color;
+public class ColorCommand implements Command {
+    protected Drawable drawable;
 
-    public ColorCommand(Drawable drawable, Point position) {
-        super(drawable, position);
+    private Color color;
+
+    public ColorCommand(Drawable drawable, Color color) {
+        this.color = color;
+        this.drawable = drawable;
+    }
+
+    @Override
+    public void execute() {
+        drawable.setColor(color);
     }
 }

@@ -1,9 +1,9 @@
 package Command.ex2;
 
-import Command.command.Command;
-import Command.command.MacroCommand;
-import Command.drawer.DrawCanvas;
-import Command.drawer.DrawCommand;
+import Command.ex2.command.Command;
+import Command.ex2.command.MacroCommand;
+import Command.ex2.drawer.DrawCanvas;
+import Command.ex2.drawer.DrawCommand;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -15,6 +15,8 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener,
     private DrawCanvas canvas = new DrawCanvas(400, 400, history);
     // 删除按钮
     private JButton clearButton = new JButton("clear");
+    // 撤销按钮
+    private JButton unmakeButton = new JButton("unmake");
 
     public Main(String title) {
         super(title);
@@ -22,9 +24,11 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener,
         this.addWindowListener(this);
         canvas.addMouseMotionListener(this);
         clearButton.addActionListener(this);
+        unmakeButton.addActionListener(this);
 
         Box buttonBox = new Box(BoxLayout.X_AXIS);
         buttonBox.add(clearButton);
+        buttonBox.add(unmakeButton);
 
         Box mainBox = new Box(BoxLayout.Y_AXIS);
         mainBox.add(buttonBox);
@@ -39,6 +43,9 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener,
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clearButton) {
             history.clear();
+            canvas.repaint();
+        } else if (e.getSource() == unmakeButton) {
+            history.undo();
             canvas.repaint();
         }
     }

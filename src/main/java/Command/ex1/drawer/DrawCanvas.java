@@ -13,10 +13,15 @@ public class DrawCanvas extends Canvas implements Drawable {
         setSize(width, height);
         setBackground(Color.white);
         this.history = history;
+        history.append(new ColorCommand(this, color));
     }
 
     public void paint(Graphics g) {
         history.execute();
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override
@@ -25,5 +30,4 @@ public class DrawCanvas extends Canvas implements Drawable {
         g.setColor(color);
         g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
     }
-
 }

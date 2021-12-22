@@ -1,14 +1,14 @@
 package Command.ex3;
 
-import Command.command.Command;
-import Command.command.MacroCommand;
-import Command.drawer.DrawCanvas;
-import Command.drawer.DrawCommand;
+import Command.ex3.command.Command;
+import Command.ex3.command.MacroCommand;
+import Command.ex3.drawer.DrawCanvas;
+import Command.ex3.drawer.DrawCommand;
 
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Main extends JFrame implements ActionListener, MouseMotionListener, WindowListener {
+public class Main extends JFrame implements ActionListener {
     // 绘制的历史记录
     private MacroCommand history = new MacroCommand();
     // 绘制区域
@@ -19,8 +19,25 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener,
     public Main(String title) {
         super(title);
 
-        this.addWindowListener(this);
-        canvas.addMouseMotionListener(this);
+        // WindowAdapter, 适配器和匿名内部类结合
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+
+        });
+
+        // MouseMotionAdapter, 适配器和匿名内部类结合
+        canvas.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                Command cmd = new DrawCommand(canvas, e.getPoint());
+                history.append(cmd);
+                cmd.execute();
+            }
+        });
+
         clearButton.addActionListener(this);
 
         Box buttonBox = new Box(BoxLayout.X_AXIS);
@@ -43,47 +60,7 @@ public class Main extends JFrame implements ActionListener, MouseMotionListener,
         }
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        Command cmd = new DrawCommand(canvas, e.getPoint());
-        history.append(cmd);
-        cmd.execute();
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-        System.exit(0);
-    }
-
     public static void main(String[] args) {
         new Main("Command Pattern Sample");
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-    }
-
-    @Override
-    public void windowOpened(WindowEvent e) {
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
     }
 }
