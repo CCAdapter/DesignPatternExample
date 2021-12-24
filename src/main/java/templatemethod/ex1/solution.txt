@@ -1,0 +1,3 @@
+java.io.InputStream类使用了模板方法模式，需要子类去实现的方法是？
+答：public abstract int read() throws IOException。也就是说，子类负责实现的是“读取1个字节”
+，模板方法是“将指定数量的字节读取到数组中的指定位置”（public int read(byte b[], int off, int len) throws IOException）。
