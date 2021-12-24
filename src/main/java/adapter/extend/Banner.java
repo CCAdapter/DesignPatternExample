@@ -1,6 +1,7 @@
 package adapter.extend;
 
 /**
+ * 被适配类
  * @author Lyu Liang
  * @since 2021-11-11 00:25
  */

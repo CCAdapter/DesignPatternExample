@@ -1,0 +1,3 @@
+为什么要用 Print 类型而不是 PrintBanner 类型的变量来保存 PrintBanner 的实例？
+这是强调“只使用了 Print 接口的方法”。在示例程序中 PrintBanner 类和 Print 接口对方提供的方法相同。
+但是在有些情况下，PrintBanner 类的方法会比 Print 接口中的方法多。使用 Print 类型可以明确地表明程序地意图。
