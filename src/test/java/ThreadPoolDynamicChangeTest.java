@@ -9,10 +9,11 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class ThreadPoolDynamicChangeTest {
+
     public static void main(String[] args) {
         ThreadPoolExecutor threadPool = ThreadPoolBuilder();
         CountDownLatch countDownLatch = new CountDownLatch(1);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 500; i++) {
             try {
                 threadPool.submit(() -> {
                     try {
@@ -35,27 +36,28 @@ public class ThreadPoolDynamicChangeTest {
                     Thread.currentThread().interrupt();
                 }
             }
-            System.out.println(Thread.currentThread().getName() + "被中断");
+            System.out.println(Thread.currentThread().getName() + " 被中断");
             countDownLatch.countDown();
-            System.out.println("---" + Thread.currentThread().isInterrupted());
-        }, "更改前");
+        }, "更改前的Thread");
         statusThread.start();
         try {
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         statusThread.interrupt();
-        threadPool.setMaximumPoolSize(10);
-        threadPool.setCorePoolSize(10);
+
+        // 更改线程池配置
+        threadPool.setMaximumPoolSize(100);
+        threadPool.setCorePoolSize(50);
+
         try {
-            System.out.println("111");
             countDownLatch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("+++" + Thread.currentThread().isInterrupted());
-        if (statusThread.isInterrupted()) {
+
+        if (!statusThread.isAlive()) {
             Thread newStatusThread = new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     threadPoolStatus(threadPool, "线程池状态统计2");
@@ -65,10 +67,9 @@ public class ThreadPoolDynamicChangeTest {
                         e.printStackTrace();
                     }
                 }
-            }, "更改后");
+            }, "更改后的Thread");
             newStatusThread.start();
         }
-        System.out.println("222");
     }
 
     private static void threadPoolStatus(ThreadPoolExecutor threadPool, String name) {
@@ -100,6 +101,6 @@ public class ThreadPoolDynamicChangeTest {
 
     private static ThreadPoolExecutor ThreadPoolBuilder() {
         return new ThreadPoolExecutor(2, 5, 0, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(47));
+                new LinkedBlockingQueue<>(500));
     }
 }
